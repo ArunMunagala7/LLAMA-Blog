@@ -2,10 +2,12 @@ import streamlit as st
 from langchain.prompts import PromptTemplate
 from langchain.llms import CTransformers
 
+## Function To get response from LLAma 2 model
+
 def getLLamaresponse(input_text,no_words,blog_style):
 
     ### LLama2 model
-    llm=CTransformers(model='models/llama-2-7b-chat.ggmlv3.strq8_0.bin',
+    llm=CTransformers(model='models/llama-2-7b-chat.ggmlv3.q8_0.bin',
                       model_type='llama',
                       config={'max_new_tokens':256,
                               'temperature':0.01})
@@ -25,18 +27,26 @@ def getLLamaresponse(input_text,no_words,blog_style):
     print(response)
     return response
 
+
+
+
+
+
 st.set_page_config(page_title="Generate Blogs",
                     page_icon='🤖',
                     layout='centered',
                     initial_sidebar_state='collapsed')
 
 st.header("Generate Blogs 🤖")
+
 input_text=st.text_input("Enter the Blog Topic")
 
-#creating two more columns for additional 2 fields
+## creating to more columns for additonal 2 fields
+
 col1,col2=st.columns([5,5])
+
 with col1:
-    no_words=st.text_input('No. of words')
+    no_words=st.text_input('No of Words')
 with col2:
     blog_style=st.selectbox('Writing the blog for',
                             ('Researchers','Data Scientist','Common People'),index=0)
